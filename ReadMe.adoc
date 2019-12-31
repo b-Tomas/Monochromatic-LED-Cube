@@ -6,11 +6,7 @@
 I made a 5x5x5 green LED cube, but with this code you can make a cube of any size, and it will work. The only limitations are:
 
 === Circuit
-You need to use as many daisy chained 8-bit shift registers (I use 74HC595n) as you need to control the cube. That means 1 bit
-for every column + 1 bit for every layer. Counting from the IC connected directly to the data pin (or MOSI), the most 
-significant bit (Q0 output) of the first IC has to be connected to the first column, and right after the last column on one of
-the lasts ICs connect the transistor of the first layer, so the usless outputs (if there are) are at the end of the last IC. See
-the 'LED_Cube_circuit_board_schematic.pdf' for more details about the circuit.
+Needs to be made following the instructions on Step 2.
 
 === Size
 Don't make a cube that you cannot put inside your house!
@@ -29,11 +25,16 @@ won't work properly, so you'll need to change some lines following the instructi
 
 == Step 2: Assemble the circuit
 
-I will update this section with a diagram, but for the moment follow the poor instructions on the project section
+You need to use as many daisy chained 8-bit shift registers (I use 74HC595n) as you need to control the cube. That means 1 bit
+for every column + 1 bit for every layer. Counting from the IC connected directly to the data pin (or MOSI), the most
+significant bit (Q0 output) of the first IC has to be connected to the first column, and right after the last column on one of
+the lasts ICs connect the transistor of the first layer, so the usless outputs (if there are) are at the end of the last IC. See
+the 'LED Cube circuit board schematic.pdf' file for more details about the circuit, and use it as example to build cubes of the
+size you want.
 
 == Step 3: Load the code
 
-Upload the Led_Cube.ino file contained in the LED_Cube folder on to your board
+Upload the Led_Cube.ino file contained in the LED_Cube folder on to your board.
 
 === Folder structure
 
