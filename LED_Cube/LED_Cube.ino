@@ -17,6 +17,8 @@ TODO:
 .OPTIMIZE THE ISR
 .check for TODOs
 .more animations
+.write instructions to change the animations
+.replace bitWrite function by masking
 */
 
 // Libraries
@@ -34,6 +36,15 @@ TODO:
 #define SET(x, y) (x |= (1 << y)) // Equivalent to bitSet()
 #define CLR(x, y) (x &= ~(1 << y)) // Equivalent to bitClear()
 
+
+//================================
+// Only for my personal problems
+#define FAST_COUNT 100
+#define NORMAL_COUNT FAST_COUNT*15
+//================================
+
+
+
 //                        X                Y                Z
 bool cubeMatrix[(int) CUBE_SIZE][(int) CUBE_SIZE][(int) CUBE_SIZE] = {0}; // Every item is a led. 1 means on and 0 off
 
@@ -41,7 +52,38 @@ byte data[NUMBER_OF_REGISTERS]; // Data to send. Every element goes to its shift
 
 byte currentLayer = 0; // Actual layer
 
+//////////////////// emprolijar, ordenar etc
+byte cathodes[int(CUBE_SIZE)]; // reemplazar con algo de abajo
+
+
+#define REGISTERS_FOR_CATHODES int((CUBE_SIZE + USELESS_BITS)/8) // Number of registers used for the layers
+int layersData[int(CUBE_SIZE)];
+byte layerRegData[REGISTERS_FOR_CATHODES]; // Data of the layers for every register with layers
+
+
+
 void setup() { 
+  for (int i = 0; i < CUBE_SIZE; i++) {
+    cathodes[i] = 1 << i+1;
+  }
+  
+  
+  
+  
+  /* 
+  //////////////////////
+  Serial.begin(9600);
+  for (int i = 0; i < sizeof(layersData); i++) {
+    layersData[i] = 1 << i;    
+    //Serial.println(layersData[i], BIN);
+  }
+  /*
+  for (int i = 0; i < sizeof(layerRegData); i++) {
+    if (i == 0) {      
+      layerRegData[i] = 
+    }
+  }*/
+
   
   // Set digital output pins
   pinMode(LATCH_PIN, OUTPUT); // Slave selector pin for the SPI communication
@@ -109,16 +151,41 @@ ISR(TIMER1_COMPA_vect) {
   
   TCNT1 = 0; // Reset the timer count
   
+  
+  
+  //================================
+  // Only for my personal problems
+  if (currentLayer == 1 or currentLayer == 3) {
+    OCR1A = FAST_COUNT;
+  } else {
+    OCR1A = NORMAL_COUNT;
+  }
+  //================================
+  /*
+  for (int i = -REGISTERS_FOR_CATHODES, j = 0; i <= -1, j <= REGISTERS_FOR_CATHODES; i++, j++) {
+    data[i] = layersData[currentLayer] >> ((8*j) + USELESS_BITS);      
+  }
+  Serial.println(data[3], BIN);
+*/
+  data[3] = cathodes[currentLayer];
+
+  
   // If in the layer to turn on is a LED to turn on, turn it on. If not, off
-  int columnOfThisLed = 0; // The number of column where this LED is located
+  int columnOfThisLed = 0;
   for (int y = 0; y < CUBE_SIZE; y++) {
     for (int x = 0; x < CUBE_SIZE; x++, columnOfThisLed++) {
+        //int columnOfThisLed = (y*CUBE_SIZE + x); // The number of column where this LED is located
         int registerOfThisColumn = columnOfThisLed >> 3; // In wich register is stored the state of this column
         int bitOfTheColumn = columnOfThisLed - (registerOfThisColumn << 3); // Wich bit on the register represents the state of the column
-        bitWrite(data[registerOfThisColumn], bitOfTheColumn, int(cubeMatrix[x][y][currentLayer])); // Writes to the bit where is the led in the current layer to turn on a 1, or a 0 to turn off
+        //bitWrite(data[registerOfThisColumn], bitOfTheColumn, int(cubeMatrix[x][y][currentLayer])); // Writes to the bit where is the led in the current layer to turn on a 1, or a 0 to turn off
+        if (cubeMatrix[x][y][currentLayer] == 1) {
+          SET(data[registerOfThisColumn], bitOfTheColumn);
+        } else {
+          CLR(data[registerOfThisColumn], bitOfTheColumn);          
+        }
     }
   }
-  
+  /*
   // Turns on the current layer and off the others  
   int bitOfTheLayerInTheTotal = ((NUMBER_OF_REGISTERS*8)-(USELESS_BITS+CUBE_SIZE)); // The number of bit (output) within all the outputs
   for (int z = 0; z < CUBE_SIZE; z++, bitOfTheLayerInTheTotal++) {
@@ -131,7 +198,11 @@ ISR(TIMER1_COMPA_vect) {
     } else {      
       CLR(data[registerOfThisLayer], bitOfTheLayer);
     }
-  }  
+  }*/
+
+
+
+  
   
   // Starts data transfer
   CLR(PORTD, LATCH_PIN); // digitalWrite(LATCH_PIN, LOW);
