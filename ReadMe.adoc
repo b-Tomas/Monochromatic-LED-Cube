@@ -1,0 +1,70 @@
+:Author: Tom743
+:Date: 12/12/2019
+
+= Project: Monochromatic LED Cube
+
+I made a 5x5x5 green LED cube, but with this code you can make a cube of any size, and it will work. The only limitations are:
+
+..Circuit: you need to use as many daisy chained 8-bit shift registers (I use 74HC595n) as you need to control the cube. That means 1 bit for
+every column + 1 bit for every layer. Counting from the IC connected directly to the data pin (or MOSI), the most significant bit (Q0 output)
+of the first IC has to be connected to the first column, and right after the last column on one of the lasts ICs connect the transistor of
+the first layer, so the usless outputs (if there are) are at the end of the last IC. See the 'LED_Cube_circuit_board_schematic.pdf' for more 
+details about the circuit.
+
+..Size: Don't make a cube that you cannot put inside your house!
+
+If the code does not work in a big cube, probably is because you exceed the data limit in some variables. The solution is changing the data 
+type of this variables to a bigger one.
+
+== Step 1: Installation
+
+1. Open the 'LED_Cube.ino' file
+2. Change the value of CUBE_SIZE to the size of your cube
+3. If you are using a microcontroller different from the Atmel ATmega328p, you will probably need to change the timer configuration
+4. The animations in the 'Animations.ino' file work prefectly in a 5x5x5 LED cube, but for other dimensions some animations won't work 
+properly, so you'll need to change some lines following the instructions in that file.
+
+== Step 2: Assemble the circuit
+
+I will update this secdtion with a diagram, but for the moment follow the poor instructions on the project section
+
+== Step 3: Load the code
+
+Upload the Led_Cube.ino file contained in the LED_Cube folder on to your board
+
+=== Folder structure
+
+....
+ Monochromatic-LED-Cube                       => Project folder
+  ├── ReadMe.adoc                               => this file
+  ├── LICENSE                                   => license file
+  └── LED_Cube                                  => Arduino sketch folder
+      ├── Led_Cube.ino                              => main Arduino file
+      └── Animations.ino                            => animation functions file
+....
+
+=== License
+This project is released under a {License} License.
+
+=== Contributing
+To contribute to this project please contact Tom743 https://id.arduino.cc/Tom743
+
+=== BOM
+
+|===
+| ID    | Part name      | Quantity
+| R1-Rn | 220 Resistor   | Number of columns + number of layers
+| J4    | LED            | Size of the cube ^ 3
+| A1    | Arduino board  | 1
+| U1-Un | 74HC595n       | (Number of columns + number of layers)/8 rounded up
+| U5    | Reg 7805       | 1
+| Q1-Qn | NPN Transistor | One for every layer
+| J2    | Barrel jack    | 1
+| SW1   | On-Off switch  | 1
+|===
+
+
+=== Help
+This document is written in the _AsciiDoc_ format, a markup language to describe documents.
+If you need help you can search the http://www.methods.co.nz/asciidoc[AsciiDoc homepage]
+or consult the http://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]
