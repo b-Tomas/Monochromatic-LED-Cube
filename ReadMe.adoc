@@ -42,6 +42,7 @@ Upload the Led_Cube.ino file contained in the LED_Cube folder on to your board.
  Monochromatic-LED-Cube                       => Project folder
   ├── ReadMe.adoc                               => this file
   ├── LICENSE                                   => license file
+  ├── LED Cube circuit board schematic.pdf      => schematics file
   └── LED_Cube                                  => Arduino sketch folder
       ├── Led_Cube.ino                              => main Arduino file
       └── Animations.ino                            => animation functions file
@@ -62,7 +63,7 @@ To contribute to this project please contact Tom743 at https://id.arduino.cc/Tom
 | A1    | Arduino board  | 1
 | U1-Un | 74HC595n       | (Number of columns + number of layers)/8 rounded up
 | U5    | Reg 7805       | 1
-| Q1-Qn | NPN Transistor | One for every layer
+| Q1-Qn | NPN Transistor | One for each layer
 | J2    | Barrel jack    | 1
 | SW1   | On-Off switch  | 1
 |===
