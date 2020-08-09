@@ -51,9 +51,6 @@ Upload the Led_Cube.ino file contained in the LED_Cube folder on to your board.
 === License
 This project is released under GNU General Public License v3.0.
 
-=== Contributing
-To contribute to this project please contact Tom743 at https://id.arduino.cc/Tom743 or https://github.com/Tom743
-
 === Hardware
 
 |===
