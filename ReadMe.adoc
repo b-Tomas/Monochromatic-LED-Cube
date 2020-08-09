@@ -9,7 +9,7 @@ I made a 5x5x5 green LED cube, but with this code you can make a cube of any siz
 Needs to be made following the instructions on Step 2.
 
 === Size
-Don't make a cube that you cannot put inside your house!
+Don't make a cube bigger than your house!
 
 If the code does not work in a big cube, probably is because you exceed the data limit in some variables. The solution is 
 changing the data type of this variables to a bigger one.
