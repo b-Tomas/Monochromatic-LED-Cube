@@ -1,9 +1,10 @@
 :Author: Tom743
 :Date: 12/12/2019
+:demo_link: https://www.reddit.com/r/arduino/comments/ef5fun/just_in_time_my_new_christmas_ornament_is_finally/?utm_source=share&utm_medium=web2x&context=3
 
 = Monochromatic LED Cube
 
-I made a 5x5x5 green LED cube, but with this code you can make a cube of any size, and it will work. The only limitations are:
+I made a 5x5x5 green LED cube, but with this code you can make a cube of any size, and it will work (demo {demo_link}[here]!). The only limitations are:
 
 === Circuit
 Needs to be made following the instructions on Step 2.
