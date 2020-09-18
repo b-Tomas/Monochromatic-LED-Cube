@@ -1,6 +1,6 @@
 //********************************************************************//
 //  Name    : Monochromatic LED cube                                  //
-//  Author  :                                                         //
+//  Author  : Tomás Badenes                                           //
 //  Date    :                                                         //
 //  Version :                                                         //
 //  Notes   :   Code for controlling any monochromatic LED cube       //
