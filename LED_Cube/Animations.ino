@@ -202,37 +202,3 @@ void ScanZ(int speed) {
     }
   }
 }
-
-// TODO Expand from the center
-void Expand(int speed) {
-  if (int(CUBE_SIZE) % 2 == 1) {
-    int center = int(CUBE_SIZE/2);
-    for (int i = 0; i <= int(CUBE_SIZE/2); i++) {
-      LED(center, center, center+i, HIGH);
-      LED(center, center+i, center, HIGH);
-      LED(center+i, center, center, HIGH);
-      LED(center, center, center-i, HIGH);
-      LED(center, center-i, center, HIGH);
-      LED(center-i, center, center, HIGH);
-      
-      LED(center+i, center, center+i, HIGH);
-      LED(center, center+i, center+i, HIGH);
-      LED(center+i, center+i, center, HIGH);
-      LED(center-i, center, center-i, HIGH);
-      LED(center, center-i, center-i, HIGH);
-      LED(center-i, center-i, center, HIGH);
-      
-      LED(center-i, center, center+i, HIGH);
-      LED(center, center-i, center+i, HIGH);
-      LED(center-i, center+i, center, HIGH);
-      LED(center, center+i, center-i, HIGH);
-      LED(center+i, center-i, center, HIGH);
-      LED(center+i, center, center-i, HIGH);
-      
-      LED(center+i, center+i, center+i, HIGH);
-      LED(center-i, center-i, center-i, HIGH);
-      
-      delay(speed);
-    }
-  }
-}
